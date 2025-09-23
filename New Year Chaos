@@ -1,0 +1,24 @@
+void minimumBribes(int q_count, int* q) {
+    int bribes = 0;
+    // Iterate through the queue
+    for (int i = 0; i < q_count; i++) {
+        // If any person has moved more than 2 positions forward, print too chaotic and return
+        if (q[i] - (i + 1) > 2) {
+            printf("Too chaotic\n");
+            return;
+        }
+    }
+
+    // Count the number of bribes by checking how many times an element passes another element ahead of its original position
+    for (int i = 0; i < q_count; i++) {
+        // Only need to check from one position ahead of the original number's position or 0 whichever is greater
+        int start = q[i] - 2 > 0 ? q[i] - 2 : 0;
+        for (int j = start; j < i; j++) {
+            if (q[j] > q[i]) {
+                bribes++;
+            }
+        }
+    }
+
+    printf("%d\n", bribes);
+}
