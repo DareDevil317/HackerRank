@@ -1,0 +1,37 @@
+int minimumLoss(int price_count, long* price) {
+    typedef struct {
+        long value;
+        int index;
+    } PriceIndex;
+
+    PriceIndex* arr = malloc(price_count * sizeof(PriceIndex));
+    for (int i = 0; i < price_count; i++) {
+        arr[i].value = price[i];
+        arr[i].index = i;
+    }
+
+    int cmp(const void* a, const void* b) {
+        long v1 = ((PriceIndex*)a)->value;
+        long v2 = ((PriceIndex*)b)->value;
+        if (v1 < v2) return -1;
+        else if (v1 > v2) return 1;
+        else return 0;
+    }
+
+    qsort(arr, price_count, sizeof(PriceIndex), cmp);
+
+    long long min_loss = 1LL << 60;  // large initial value
+
+    for (int i = 1; i < price_count; i++) {
+        if (arr[i].index < arr[i - 1].index) {
+            long long loss = (long long)(arr[i].value) - (long long)(arr[i - 1].value);
+            if (loss > 0 && loss < min_loss) {
+                min_loss = loss;
+            }
+        }
+    }
+
+    free(arr);
+
+    return (int)min_loss;
+}
