@@ -1,4 +1,3 @@
-```C
 int sansaXor(int arr_count, int* arr) {
     int result =0;
     if (arr_count%2!=0){
@@ -8,4 +7,3 @@ int sansaXor(int arr_count, int* arr) {
     }
     return result;
 }
-```
