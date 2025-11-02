@@ -1,0 +1,23 @@
+def gridSearch(G, P):
+    # Write your code here
+    i = 0
+    while i < len(G): 
+        pattern = "".join(P[0])
+        gridline = "".join(G[i])
+              
+        
+        prevPatternIndex = 0    
+        while pattern in gridline[prevPatternIndex:]:  
+            indexOfPattern = gridline.index(pattern, prevPatternIndex)   
+            j,k = 0,i 
+            while j < len(P) and k < len(G) and "".join(G[k])[indexOfPattern:].startswith("".join(P[j])): 
+                k += 1 
+                j += 1 
+        
+            if j == len(P): 
+                return "YES"
+            
+            prevPatternIndex += 1
+            
+        i += 1 
+    return "NO"
