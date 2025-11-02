@@ -1,0 +1,20 @@
+def kaprekarNumbers(p, q):
+    k_nums = []
+    for i in range(p, q + 1):
+        sq=i*i
+        sq_str=str(sq)
+        d = len(str(i))
+        if len(sq_str) > d:
+            l_str = sq_str[:-d]
+            r_str = sq_str[-d:]
+        else:
+            l_str = "0"
+            r_str = sq_str
+        left = int(l_str) if l_str else 0
+        right = int(r_str) if r_str else 0
+        if left + right == i:
+            k_nums.append(i)
+    if k_nums:
+        print(' '.join(map(str, k_nums)))
+    else:
+        print("INVALID RANGE")
