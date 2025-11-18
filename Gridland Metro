@@ -1,0 +1,25 @@
+vector<vector<long long>> merge(vector<vector<long long>> tracks) {
+    sort(tracks.begin(), tracks.end(), [](vector<long long>& a, vector<long long>& b) {
+        return a[0] < b[0];
+    });
+
+    if (tracks.empty()) {
+        return {};
+    }
+
+    vector<vector<long long>> merged_tracks;
+    merged_tracks.push_back(tracks[0]);
+
+    for (int i = 1; i < tracks.size(); i++) {
+        long long last_end = merged_tracks.back()[1];
+        long long current_start = tracks[i][0];
+        long long current_end = tracks[i][1];
+
+        if (current_start <= last_end + 1) { 
+            merged_tracks.back()[1] = max(last_end, current_end);
+        } else {
+            merged_tracks.push_back(tracks[i]);
+        }
+    }
+    return merged_tracks;
+}
